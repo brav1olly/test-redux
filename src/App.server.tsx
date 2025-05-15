@@ -1,14 +1,15 @@
-'use server';
-export async function fetchUserData() {
-   const res = await fetch('https://jsonplaceholder.typicode.com/users');
-   return res.json();
-}
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment, type RootState } from "./slices";
 
-export default async function Counter() {
-   const user = await fetchUserData();
+export function Counter() {
+   const value = useSelector((state: RootState) => state.value);
+   const dispatch = useDispatch();
+ 
    return (
-      <div>
-
-      </div>
+     <div>
+       <h1>Counter: {value}</h1>
+       <button onClick={() => dispatch(increment())}>+1</button>
+       <button onClick={() => dispatch(decrement())}>-1</button>
+     </div>
    );
-}
+ }
